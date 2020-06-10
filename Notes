@@ -1,0 +1,8 @@
+Mutability: Strings, Tuples are immutable
+Use global for mutable objects
+
+Iterable: something that can be iterated over
+Iterator: special object with a next method
+Import itertools for iterators
+
+Importing packages
