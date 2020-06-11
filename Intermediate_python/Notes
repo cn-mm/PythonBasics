@@ -20,3 +20,24 @@ import argparse - this module is used to write command line interfaces.
 
 import sys - this module (System-specific parameters and functions) provides access to
              some variables used or maintained by the interpreter
+
+
+List Comprehension and Generators
+
+n3. range is a generator, generates a stream in the range m to n
+n4. lists are faster in most cases but they use memory whereas generators do not use memory
+n5. work your way backwards for [function() and for] statements
+
+Timeit module
+
+import timeit - measures execution time of python code snippets
+
+n6. timeit.timeit requires all code
+n7. using enumerate for dictionaries
+n8. using zip
+n9. for loop vs list comprehension (values dont get stored or overwritten)
+
+Multiprocessing
+
+GIL : Global Interpreter Lock, memory management safeguard
+
