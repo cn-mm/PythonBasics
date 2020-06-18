@@ -1,0 +1,88 @@
+GETTING STARTED WITH OPENCV
+Image Detection and Video Detection paradigms are very similar.
+
+Stuff that can be done using opencv:
+
+Background Subtracting
+Edge Detection
+Colour Filtering
+Feature Matching
+General object recognition
+Pixel Values in the case of edge detection:
+
+Black : (0,0,0)
+White : (255,255,255)
+IMREAD_COLOR : default, color without any alpha channel (alpha is the degree of opaqueness) IMREAD_UNCHANGED : retains the alpha channel
+
+In case of cv2 we have BGR and with alpha channel we have BGRA
+
+Colors as numbers:
+
+Color (IMREAD_COLOR) is 1
+Graysvale (IMREAD_GRAYSCALE) is 0 (much more simplified)
+Unchanged (IMREAD_UNCHANGED) is -1
+Image analysis and video analysis in full color would require a lot more processing.
+
+Can show the image using either
+
+cv2 (Does BGR)
+matpotlib (Does RGB)
+
+-----------------------------------------------------------------------------------
+
+INTERACTING WITH VIDEO FEED
+1. cv2.VideoCapture(0): will return video from the first webcam on your computer
+2. ret, frame = cap.read(): - ret is a boolean that returns true if there was any return
+                            - fame is every frame being recorded
+
+3. if cv2.waitKey(1) & 0xFF == ord('q'): this statement runs once per frame, we we get a key 'q'. the if statement evaluates 
+
+-----------------------------------------------------------------------------------
+
+DRAWING ON IMAGES:
+
+1. Lines: cv2.line(image, start = (0,0), end = (150,150), color = (255,255,255), linethickness= 15)
+2. Rectangles: cv2.rectangle(image, (15,25), (200,150), (0,0,255), 15)
+3. Circles: cv2.circle(image, centre = (100,63), radius = 55, color = (0,255,0), -1)
+4. Text: font = cv2.FONT_HERSHEY_SIMPLEX
+                cv2.putText(img,'OpenCV Tuts!',(0,130), font, 1, (200,255,155), 2, cv2.LINE_AA)
+5. Polygon: pts = np.array([[10,5],[20,30],[70,20],[50,10]], np.int32)
+            cv2.polylines(img, [pts], True, (0,255,255), 3)
+
+-----------------------------------------------------------------------------------
+
+BASIC IMAGE OPERATIONS 
+
+Image analysis, there is an input source (generally full color), is then converted to grayscale. Draw rectangle on the gray version and then on the colored version using the known coordinates. 
+Gray used for analysis and the analysis can be superimposed on the colored image. 
+
+-----------------------------------------------------------------------------------
+
+IMAGE ARITHMETICS AND LOGICAL OPERATIONS 
+
+1. Resizing images
+
+Note: Only images of same sizes can be added 
+2. Adding images : superimposing 2 images 
+3. Adding images using cv : adds pixel values of both images 
+4. Masking 
+
+Threshold value: if a value is above int(value), it is converted to white, else black
+Thresholds help simplify images. 
+
+bitwise is a low level logical operation 
+
+Masking as done in t5 is a 2 step procedure. Consider 2 images, i1, i2. i2 is the logo to be superimposed. Defined the boundary of i2 as roi. 
+
+-----------------------------------------------------------------------------------
+
+THRESHOLDING 
+
+
+
+
+
+
+
+
+
