@@ -78,11 +78,101 @@ Masking as done in t5 is a 2 step procedure. Consider 2 images, i1, i2. i2 is th
 
 THRESHOLDING 
 
+Used for simplifying
+Define a value inside cv2.threshold, value chosen is large if image is primarily light and small if the image is dark.
+Binary threshold is used so the pixel values are converted to white or black based on whether the original pixel value is above or below threshold. 
+
+Three kinds of threshold were covered in the tutorial:
+1. Binary Threshold
+2. Adaptive (Guassian)
+3. Otsu
+
+Can also add blurring and smoothening techniques on the images 
+
+-----------------------------------------------------------------------------------
+
+COLOR FILTERING
+
+Important Note: waitKey(delay) if 27 used, it is the ASCII value for escape key
+
+HSV stands for hue, saturation, value
+Color is converted from BGR to HSV
+Mask is defined using cv2.inRange(hsv, lower, upper) and it displays a black and white screen:
+The value is either in the range or not, if it is in the range then it is white (1) else it is shown as black (0)
+
+Result is obtained by performing a bitwise and operation of the original image with the mask. 
+
+-----------------------------------------------------------------------------------
+
+BLURRING AND SMOOTHENING
+
+Filters:
+1. Define kernal and use filter2D
+2. gaussianBlur
+2. medianBlur
+3. bilateralBlur
+
+-----------------------------------------------------------------------------------
+
+MORPHOLOGICAL TRANSFORMATIONS
+
+1. Erosion is where we will "erode" the edges. It works with a slider (kernel) of some size. What happens is we slide this slider around, and if all of the pixels are white, then we get white, otherwise black. This may help eliminate some white noise. 
+2. Dilation does the opposite: Slides around, if the entire area isn't black, then it is converted to white.
+
+Opening is to remove false positives
+Closing is to remove false negatives
+
+-----------------------------------------------------------------------------------
+
+CANNY EDGE DETECTION AND GRADIENTS 
+
+Laplacian: shows edges 
+Sobelx: shows gradient along x
+Sobely: shows gradient along y
+
+Canny: inbuilt feature that detects edges.
+
+-----------------------------------------------------------------------------------
+
+TEMPLATE MATCHING
+
+Works well for making perfect matches, e.g. with GUIs
+We require a main image and a template image 
+Set a threshold for deciding the match 
+cv2.matchTemplate is used fro matching and locations where result > threshold are stored in a variable
+
+for all points found and stored, we draw a rectangle around the matched template on the main image. 
+
+Uses thresholds 
+
+-----------------------------------------------------------------------------------
+
+GRAB CUT FOREGROUND EXTRACTION
+
+Removing background somewhat manually 
+
+-----------------------------------------------------------------------------------
+
+CORNER DETECTION 
+
+Can be used 
+1. to track motion 
+2. Rendering
+3. Character Recognition 
 
 
+-----------------------------------------------------------------------------------
 
+FEATURE MATCHING
 
+More flexible than template matching
+Set up key points and their descriptors 
+Create a matcher object 
+Find matches and sort 
 
+False positives 
+
+-----------------------------------------------------------------------------------
 
 
 
