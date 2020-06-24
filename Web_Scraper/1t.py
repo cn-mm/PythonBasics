@@ -4,7 +4,6 @@ from urllib.request import Request, urlopen
 import webbrowser
 import sys
 import os
-import json
 import re
 import requests
 import cv2
@@ -43,8 +42,12 @@ def get_url(query):
 
 
 
-
+# DIRECTORY FOR SAVING THE IMAGES 
 query = get_query()
+dirname = 'Scraped ' + re.sub('[!!@#$+]', ' ',query)
+os.makedirs(dirname, exist_ok=True)  
+
+
 try:
     res = requests.get(get_url(query))
     try:
@@ -59,24 +62,35 @@ try:
 except requests.exceptions.ConnectionError:
     res.status_code = "Connection refused"
 
-# DIRECTORY FOR SAVING THE IMAGES 
-os.makedirs('Scraped ' + re.sub('[!!@#$+]', ' ',query), exist_ok=True)  
 
+imgElem = soup.select('div img')     #getting img tag 
 
+for i in range(1,len(imgElem)):
+    if imgElem == []:                        #if not found print error
+        print('could not find any image')
 
+    else:
+        try:
+            imgUrl = imgElem[i].get('src')
+            print(imgElem[i].get('src'))
+            print('Downloading image %s.....' %(imgUrl))
+            res = requests.get(imgUrl)
+            res.raise_for_status()
 
-image_elements = soup.find('img')
-print(type(image_elements))
-print(image_elements)
-
+            #except requests.exceptions.MissingSchema:
+        except Exception as e:
+        #skip if not a normal image file
+            print(e)
+            
+        num = str(i) + ".jpg"
+        imageFile = open(os.path.join('.\\'+ dirname, num),'wb')     #write  downloaded image to hard disk
+        for chunk in res.iter_content(10000):
+            imageFile.write(chunk)
+            
+        imageFile.close()
 
 
 '''
-metadata_dicts = (json.loads(e.text) for e in image_elements)
-link_type_records = ((d["ou"], d["ity"]) for d in metadata_dicts)
-
-print(link_type_records)
-
 
 def main():
 

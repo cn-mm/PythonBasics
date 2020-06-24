@@ -1,11 +1,11 @@
 # CURRENT WORKING CAPACITY IS 20 IMAGES 
 import cv2
 import re
+from urllib.request import Request, urlopen
 import webbrowser
 import requests 
 import os
 import shutil
-from urllib.request import Request, urlopen
 import bs4 as bs
 import funcs
 
@@ -26,6 +26,9 @@ print(type(res))
 soup = bs.BeautifulSoup(res.text, 'lxml')
 print(type(res.text))
 
+
+# Making new folder 
+os.makedirs('new1')
 '''
 # HELPER STATEMENTS FOR UNDERSTANDING WHAT IS BEING RETURNED 
 images = soup.select('div img')
@@ -40,15 +43,13 @@ for i in range(len(images)):
 
 '''
 
-# Making new folder 
-os.makedirs('new1')
 
 
-imgElem = soup.select('div img')     #getting img tag under  comic divison
+imgElem = soup.select('div img')     #getting img tag 
 
 for i in range(1,len(imgElem)):
     if imgElem == []:                        #if not found print error
-        print('could not find comic image')
+        print('could not find any image')
 
     else:
         try:
@@ -63,7 +64,7 @@ for i in range(1,len(imgElem)):
         #skip if not a normal image file
             print(e)
             
-        num = str(i) + "jpg"
+        num = str(i) + ".jpg"
         imageFile = open(os.path.join('.\\new1', num),'wb')     #write  downloaded image to hard disk
         for chunk in res.iter_content(10000):
             imageFile.write(chunk)
