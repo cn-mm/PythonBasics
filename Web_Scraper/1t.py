@@ -7,6 +7,7 @@ import os
 import json
 import re
 import requests
+import cv2
 import funcs # helper functions 
 
 
@@ -34,7 +35,7 @@ def get_query():
             query = "drums"
             print("Using default query \" Drums\"")
 
-    return 'https://www.google.co.in/search?q='+query+'&source=lnms&tbm=isch'
+    return query
 
 
 def get_url(query):
@@ -42,15 +43,24 @@ def get_url(query):
 
 
 
+
 query = get_query()
-req = Request(get_url(query), headers= AGENT)
-sauce = urlopen(req).read()
-soup = bs.BeautifulSoup(sauce, 'html.parser')
+try:
+    res = requests.get(get_url(query))
+    try:
+        res.raise_for_status()
+    except Exception as exc:
+        print('There was a problem: %s' % (exc))
+
+    # print(len(res.text))
+    # print(res.text[:200])
+    soup = bs.BeautifulSoup(res.text, 'html.parser')
+
+except requests.exceptions.ConnectionError:
+    res.status_code = "Connection refused"
 
 # DIRECTORY FOR SAVING THE IMAGES 
 os.makedirs('Scraped ' + re.sub('[!!@#$+]', ' ',query), exist_ok=True)  
-
-
 
 
 
